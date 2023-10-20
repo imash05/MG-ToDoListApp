@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import "bootstrap/dist/css/bootstrap.min.css";
 import "bootswatch/dist/minty/bootstrap.min.css";
 import './App.css';
 import { BiTrash } from "react-icons/bi";
