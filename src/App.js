@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import "bootstrap/dist/css/bootstrap.min.css";
-import "bootswatch/dist/minty/bootstrap.min.css";
 import './App.css';
 import { BiTrash, BiPlus } from 'react-icons/bi';
 import { MdDelete } from 'react-icons/md';
@@ -16,7 +15,7 @@ function App() {
   const [validationError, setValidationError] = useState(null);
   const titleStyle = {
     color: '#5a9282',
-    fontFamily: 'Dancing Script, sans-serif',
+    fontFamily: 'Acme, sans-serif',
   };
 
   useEffect(() => {
