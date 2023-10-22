@@ -1,24 +1,141 @@
 @import url("https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/minty/bootstrap.min.css");
 @import url('https://fonts.googleapis.com/css2?family=Acme&display=swap');
-.App {
+@import url('https://unpkg.com/emoji-mart@3.1.2/css/emoji-mart.css');
+
+/* Stili generali per schermi grandi e piccoli */
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 20px; /* Ridotto lo spazio per i dispositivi mobili */
+}
+
+.title {
   text-align: center;
-  font-family:'Acme', Tahoma, Geneva, Verdana, sans-serif;
-  margin-top: 20px;
+  color: #5a9282;
+  font-family: 'Acme', sans-serif;
+  margin-bottom: 20px; /* Aggiunto spazio tra il titolo e il contenuto */
 }
 
-input {
-  padding: 5px;
-  margin-right: 10px;
+.input-group {
+  display: flex;
+  flex-direction: column; /* Impilati verticalmente su schermi piccoli */
 }
 
-button {
-  background-color: #007BFF;
-  color: white;
-  border: none;
-  padding: 5px 10px;
-  cursor: pointer;
+.input-group input[type="text"],
+.input-group input[type="datetime-local"] {
+  width: 100%; /* Larghezza completa su schermi piccoli */
+  margin: 10px 0; /* Aggiunto spazio tra i campi di input */
 }
 
-button:hover {
-  background-color: #0056b3;
+.input-group button {
+  width: 100%; /* Pulsanti larghi su schermi piccoli */
+  margin: 10px 0; /* Aggiunto spazio tra i pulsanti */
 }
+
+.validation-error {
+  color: red;
+  margin-top: 10px; /* Aggiunto spazio tra il messaggio di errore e gli input */
+}
+
+.list-group-item {
+  display: flex;
+  flex-direction: column; /* Impilati verticalmente su schermi piccoli */
+  margin-top: 10px; /* Aggiunto spazio tra gli elementi della lista */
+  padding: 10px;
+  border: 1px solid #ccc;
+}
+
+.completed {
+  text-decoration: line-through;
+}
+
+.task-image {
+  max-width: 100%; /* Adattato all'ampiezza del contenitore */
+  height: auto; /* Mantenuto l'aspetto corretto dell'immagine */
+  margin-top: 10px; /* Aggiunto spazio tra le immagini delle attività */
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-top: 10px; /* Aggiunto spazio tra i tag e gli altri contenuti */
+}
+
+.tag {
+  padding: 2px 5px;
+  border-radius: 3px;
+  font-size: 12px;
+  background-color: lightgray;
+}
+
+.task-image {
+  max-width: 40px; /* Ulteriormente ridotta la larghezza massima delle immagini */
+}
+
+.custom-input {
+  width: 100%;
+  max-width: 1000px; /* Larghezza massima */
+  height: 50px; /* Altezza desiderata */
+  padding: 10px;
+  font-size: 16px;
+  border: #5a9282;
+  border-radius: 5px;
+}
+
+:hover .custom-input{
+  border: solid #5a9282;
+}
+
+
+@media (max-width: 564px) {
+  .input-group input[type="text"],
+  .input-group input[type="datetime-local"] {
+    margin: 5px 0; /* Riduci lo spazio tra i campi di input */
+  }
+
+  .btn {
+    margin-top: 5px; /* Riduci lo spazio tra i pulsanti */
+  }
+
+  .tags {
+    margin-top: 5px; /* Riduci lo spazio tra i tag e gli altri contenuti */
+  }
+
+  .list-group-item .form-control,
+  .list-group-item button {
+    margin: 5px 0; /* Riduci lo spazio tra gli input e i pulsanti */
+  }
+
+  .list-group-item .tag {
+    margin-top: 2px; /* Riduci lo spazio tra i tag */
+  }
+}
+
+@media (max-width: 564px) {
+  .task-image {
+    max-width: 40px; /* Ulteriormente ridotta la larghezza massima delle immagini */
+  }
+}
+
+@media (max-width: 564px) {
+  .list-group-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .list-group-item .tags {
+    justify-content: center;
+  }
+
+  .list-group-item .tag {
+    margin: 2px;
+  }
+
+  .list-group-item .tags {
+    margin: 5px 0;
+  }
+}
+
