@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/minty/bootstrap.min.css';
 import './App.css';
 import { BiTrash, BiPlus, BiImageAdd } from 'react-icons/bi';
 import { MdDelete } from 'react-icons/md';
