@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import "bootstrap/dist/css/bootstrap.min.css";
+import 'bootstrap/dist/css/bootstrap.min.css';
 import "bootswatch/dist/minty/bootstrap.min.css";
 import './App.css';
 import { BiTrash, BiPlus, BiImageAdd } from 'react-icons/bi';
@@ -17,8 +17,8 @@ function App() {
   const [taskImages, setTaskImages] = useState({});
   const [editingTask, setEditingTask] = useState(null);
   const [selectedTags, setSelectedTags] = useState([]);
-  const [showTagSelector, setShowTagSelector] = useState(false);
   const [taskDeadline, setTaskDeadline] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('');
   const [availableTags] = useState([
     '🛒 Spesa',
     '💼 Lavoro',
@@ -28,15 +28,89 @@ function App() {
     '📦 Altro',
   ]);
   const tagColors = {
-      '🛒 Spesa': '#FF5733',      
-      '💼 Lavoro': '#3498DB',     
-      '📺 Serie TV': '#2ECC71',   
-      '🎬 Film': '#967ADC',       
-      '🎮 Giochi': '#F1C40F',    
-      '📦 Altro': '#FF6B81',
-    };
-
+    '🛒 Ingredienti': '#AED6F1',
+    '🍞 Pane': '#AED6F1',
+    '🍎 Frutta': '#AED6F1',
+    '🥦 Verdure': '#AED6F1',
+    '🧀 Latticini': '#AED6F1',
+    '🥖 Panetteria': '#AED6F1',
+    '🥩 Carne': '#AED6F1', 
+    '🍷 Bevande': '#AED6F1', 
+    '🥕 Prodotti per la pulizia': '#AED6F1', 
+    '💼 Lavoro': '#B0E57C',
+    '📅 Scadenza': '#B0E57C',
+    '💻 Progetto': '#B0E57C',
+    '📈 Rapporto': '#B0E57C',
+    '✉️ Email': '#B0E57C',
+    '📑 Documenti': '#B0E57C', 
+    '📊 Riunioni': '#B0E57C', 
+    '📔 Note': '#B0E57C', 
+    '💡 Idee': '#B0E57C', 
+    '📝 Compiti': '#B0E57C', 
+    '📺 Serie TV': '#F7CAC9',
+    '🎬 Film': '#F7CAC9',
+    '🎮 Giochi': '#F7CAC9',
+    '🎵 Musica': '#F7CAC9',
+    '🏞️ Attività fuori': '#F7CAC9',
+    '📚 Lettura': '#F7CAC9', 
+    '🚴 Sport': '#F7CAC9', 
+    '🏊 Piscina': '#F7CAC9', 
+    '🍔 Ristorante': '#F7CAC9', 
+    '🚗 Trasporti': '#F7CAC9', 
+    '🌍 Viaggi': '#F7CAC9', 
+    '📅 Appuntamenti': '#F7CAC9', 
+    '📷 Fotografia': '#F7CAC9', 
+    '🛋️ Shopping': '#F7CAC9',
+    '📦 Altro': '#F7CAC9', 
+    '🎉 Evento': '#F7CAC9', 
+    '🏠 Casa': '#F7CAC9', 
+    '💤 Sonno': '#F7CAC9',
+    '🧹 Pulizia': '#F7CAC9',
+    '🍫 Snack': '#AED6F1',
+    '📚 Libri di testo': '#A3E4D7',
+    '📝 Appunti': '#A3E4D7',
+    '📐 Materiali scolastici':'#A3E4D7', 
+    '📖 Compiti':'#A3E4D7',
+  };
   
+
+  const tagCategories = [
+    {
+      name: 'Spesa',
+      tags: ['🛒 Ingredienti', '🍞 Pane', '🍎 Frutta', '🥦 Verdure', '🧀 Latticini', '🥖 Panetteria', '🥩 Carne', '🍷 Bevande', '🍫 Snack', '🥕 Prodotti per la pulizia'],
+    },
+    {
+      name: 'Lavoro',
+      tags: ['💼 Lavoro', '📅 Scadenza', '💻 Progetto', '📈 Rapporto', '✉️ Email', '📑 Documenti', '📊 Riunioni', '📔 Note', '💡 Idee', '📝 Compiti'],
+    },
+    {
+      name: 'Tempo Libero',
+      tags: ['📺 Serie TV', '🎬 Film', '🎮 Giochi', '🎵 Musica', '🏞️ Attività fuori', '📚 Lettura', '🚴 Sport', '🏊 Piscina', '🍔 Ristorante'],
+    },
+    {
+      name: 'Altro',
+      tags: ['📦 Altro', '🎉 Evento', '🏠 Casa', '💤 Sonno', '🧹 Pulizia', '🚗 Trasporti', '🌍 Viaggi', '📅 Appuntamenti', '📷 Fotografia', '🛋️ Shopping'],
+    },
+    {
+      name: 'Scuola',
+      tags: ['📚 Libri di testo', '📝 Appunti', '📐 Materiali scolastici', '📖 Compiti'],
+    }
+  ];
+
+  const handleCategoryChange = (category) => {
+    setSelectedCategory(category);
+    setSelectedTags([]); // Reset selected tags when the category changes
+  };
+
+  const handleTagSelection = (tag) => {
+    if (!selectedTags.includes(tag)) {
+      setSelectedTags([...selectedTags, tag]);
+    } else {
+      setSelectedTags(selectedTags.filter((selectedTag) => selectedTag !== tag));
+    }
+  };
+
+
   const titleStyle = {
     color: '#5a9282',
     fontFamily: 'Acme, sans-serif',
@@ -62,15 +136,22 @@ function App() {
         tags: [...selectedTags],
       };
 
-      setTasks([...tasks, taskWithTimestamp]);
+      const updatedTasks = [...tasks, taskWithTimestamp];
+      setTasks(updatedTasks);
       setNewTask('');
       setTaskImages({ ...taskImages, [tasks.length]: null });
-      localStorage.setItem('tasks', JSON.stringify([...tasks, taskWithTimestamp]));
+      localStorage.setItem('tasks', JSON.stringify([...tasks, taskWithTimestamp])); // Salva le attività nel localStorage
       setValidationError(null);
     } else {
       setValidationError('Il campo non può essere vuoto.');
     }
   };
+  useEffect(() => {
+    const savedTasks = localStorage.getItem('tasks');
+    if (savedTasks) {
+      setTasks(JSON.parse(savedTasks));
+    }
+  }, []);
 
   const toggleTag = (tag) => {
     if (selectedTags.includes(tag)) {
@@ -80,28 +161,68 @@ function App() {
     }
   };
 
-  const TagSelector = ({ tags, selectedTags, onSelectTag }) => {
+  const TagSelector = ({ categories, selectedCategory, onSelectCategory, selectedTags, onSelectTag }) => {
     return (
       <div className="d-flex align-items-center">
-        <br />
         <div>
-          <label>Seleziona le tags:</label>
-          {tags.map((tag) => (
-            <button
-              key={tag}
-              style={{ backgroundColor: tagColors[tag] || 'black' }}
-              className={`btn ${selectedTags.includes(tag) ? 'btn-success' : 'btn-light'}`}
-              onClick={() => onSelectTag(tag)}
-            >
-              {tag}
-            </button>
-          ))}
+          <label>Seleziona la categoria:</label>
+          <select value={selectedCategory} onChange={(e) => onSelectCategory(e.target.value)}>
+            <option value="">Tutte le categorie</option>
+            {categories.map((category) => (
+              <option key={category.name} value={category.name}>
+                {category.name}
+              </option>
+            ))}
+          </select>
         </div>
-        <br></br>
+        <div>
+          <label>Seleziona le tag:</label>
+          {selectedCategory &&
+            categories
+              .find((category) => category.name === selectedCategory)
+              .tags.map((tag) => (
+                <button
+                  key={tag}
+                  style={{ backgroundColor: tagColors[tag] || 'black', color: "white" }}
+                  className={`btn ${selectedTags.includes(tag) ? 'btn-success' : 'btn-light'}`}
+                  onClick={() => onSelectTag(tag)}
+                >
+                  {tag}
+                </button>
+              ))}
+        </div>
       </div>
     );
   };
-  
+
+  function CategoryTagModal({ show, onClose }) {
+    // ... (Puoi inserire qui il codice per la selezione di categoria e tag)
+    return (
+      <Modal show={show} onHide={onClose} backdrop="static" keyboard={false}>
+        <Modal.Header closeButton>
+          <Modal.Title>Seleziona Categoria e Tag</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <TagSelector
+            categories={tagCategories}
+            selectedCategory={selectedCategory}
+            onSelectCategory={handleCategoryChange}
+            selectedTags={selectedTags}
+            onSelectTag={handleTagSelection}
+          />
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={onClose}>
+            Chiudi
+          </Button>
+          <Button variant="primary" onClick={onClose}>
+            Salva
+          </Button>
+        </Modal.Footer>
+      </Modal>
+    );
+  }
+
 
 
   const toggleCompleted = (index) => {
@@ -131,9 +252,12 @@ function App() {
   };
 
   const handleRemoveAll = () => {
+    const updatedTasks = tasks.filter((_, index) => index !== taskToRemove);
     setTasks([]);
     setTaskImages({});
-    localStorage.removeItem('tasks');
+    localStorage.setItem('tasks', JSON.stringify(updatedTasks));
+    setShowModal(false);
+    setShowConfirmationModal(true);
   };
 
   const handleConfirmationModalClose = () => {
@@ -227,6 +351,10 @@ function App() {
     }
     return null;
   };
+  const [showCategoryTagModal, setShowCategoryTagModal] = useState(false);
+  const handleCloseCategoryTagModal = () => {
+    setShowCategoryTagModal(false);
+  };
 
   return (
     <div className="container mt-5">
@@ -251,6 +379,9 @@ function App() {
           value={taskDeadline}
           onChange={(e) => setTaskDeadline(e.target.value)}
         />
+        <button className="btn btn-primary" onClick={() => setShowCategoryTagModal(true)}>
+          Seleziona Categoria e Tags
+        </button>
         <div className="input-group-append">
           <button className="btn btn-primary" onClick={addTask}>
             <BiPlus />
@@ -260,97 +391,111 @@ function App() {
           </button>
         </div>
       </div>
+      <CategoryTagModal show={showCategoryTagModal} onClose={handleCloseCategoryTagModal} />
       {validationError && <div className="text-danger">{validationError}</div>}
-      <TagSelector tags={availableTags} selectedTags={selectedTags} onSelectTag={toggleTag} />
+      {/*<TagSelector
+        categories={tagCategories}
+        selectedCategory={selectedCategory}
+        onSelectCategory={handleCategoryChange}
+        selectedTags={selectedTags}
+        onSelectTag={handleTagSelection}
+        />*/}
       <ul className="list-group">
-        {tasks.map((task, index) => (
-          <li
-            key={index}
-            className={`list-group-item d-flex justify-content-between align-items-center ${task.completed ? 'completed' : ''
-              }`}
-          >
-            {editingTask === index ? (
-              <div>
-                <input
-                  type="text"
-                  value={newTask}
-                  onChange={(e) => setNewTask(e.target.value)}
-                />
-                <input
-                  type="datetime-local"
-                  value={taskDeadline}
-                  onChange={(e) => setTaskDeadline(e.target.value)}
-                />
-                <TagSelector tags={availableTags} selectedTags={selectedTags} onSelectTag={toggleTag} />
-                <button className="btn btn-success" onClick={saveEditedTask}>
-                  Salva
-                </button>
-              </div>
-            ) : (
-              <span
-                onClick={() => toggleCompleted(index)}
-                style={{
-                  cursor: 'pointer',
-                  textDecoration: task.completed ? 'line-through' : 'none',
-                }}
-              >
-                {task.text}
-              </span>
-            )}
-            <span className="text-muted">{task.timestamp}</span>
-            <span className="text-primary">
-              {task.deadline ? formatDate(task.deadline) : 'Nessuna scadenza'}
-            </span>
-            <div className="tags">
-              {task.tags && task.tags.map((tag, tagIndex) => (
-                <span
-                  key={tagIndex}
-                  className="tag"
-                  style={{ backgroundColor: tagColors[tag] || 'lightgray' }}
-                >
-                  {tag}
-                </span>
-              ))}
-            </div>
-            <label htmlFor={`file-input-${index}`} style={{marginTop:"10px"}}>
-              <BiImageAdd size={28} color="#5a9282" />
-            </label>
-            <input
-              type="file"
-              id={`file-input-${index}`}
-              accept="image/*"
-              style={{ display: 'none' }}
-              onChange={(e) => handleImageChange(e, index)}
-            />
-            <img
-              src={taskImages[index] || ''}
-              alt=""
-              className={`task-image ${!taskImages[index] ? 'task-image-opacity' : ''}`}
-            />
-            <div className="d-flex">
+        {tasks
+          /*.filter((task) => {
+            const hasSelectedTag = selectedTags.some((tag) => task.tags.includes(tag));
+            const isCategoryMatch =
+              selectedCategory === '' || tagCategories.find((category) => category.name === selectedCategory).tags.includes(task.tags[0]);
+            return hasSelectedTag && isCategoryMatch;
+          })*/ /*FILTRO PER LE TAG*/
+          .map((task, index) => (
+            <li
+              key={index}
+              className={`list-group-item d-flex justify-content-between align-items-center ${task.completed ? 'completed' : ''
+                }`}
+            >
               {editingTask === index ? (
-                <button className="btn btn-success" onClick={saveEditedTask}>
-                  Salva
-                </button>
-              ) : (
                 <div>
                   <input
-                    type="checkbox"
-                    checked={task.completed}
-                    onChange={() => toggleCompleted(index)}
-                    style={{ marginRight: "20px" }}
+                    type="text"
+                    value={newTask}
+                    onChange={(e) => setNewTask(e.target.value)}
                   />
-                  <button className="btn btn-warning" onClick={() => editTask(index)}>
-                    Modifica
+                  <input
+                    type="datetime-local"
+                    value={taskDeadline}
+                    onChange={(e) => setTaskDeadline(e.target.value)}
+                  />
+                  <TagSelector tags={availableTags} selectedTags={selectedTags} onSelectTag={toggleTag} style={{ color: "white" }} />
+                  <button className="btn btn-success btn-category-tag" onClick={saveEditedTask}>
+                    Salva
                   </button>
                 </div>
+              ) : (
+                <span
+                  onClick={() => toggleCompleted(index)}
+                  style={{
+                    cursor: 'pointer',
+                    textDecoration: task.completed ? 'line-through' : 'none',
+                  }}
+                >
+                  {task.text}
+                </span>
               )}
-              <button className="btn btn-danger ml-2" onClick={() => confirmRemove(index)}>
-                <BiTrash />
-              </button>
-            </div>
-          </li>
-        ))}
+              <span className="text-muted">{task.timestamp}</span>
+              <span className="text-primary">
+                {task.deadline ? formatDate(task.deadline) : 'Nessuna scadenza'}
+              </span>
+              <div className="tags">
+                {task.tags && task.tags.map((tag, tagIndex) => (
+                  <span
+                    key={tagIndex}
+                    className="tag"
+                    style={{ backgroundColor: tagColors[tag] || 'lightgray' }}
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
+              <label htmlFor={`file-input-${index}`} style={{ marginTop: "10px" }}>
+                <BiImageAdd size={28} color="#5a9282" />
+              </label>
+              <input
+                type="file"
+                id={`file-input-${index}`}
+                accept="image/*"
+                style={{ display: 'none' }}
+                onChange={(e) => handleImageChange(e, index)}
+              />
+              <img
+                src={taskImages[index] || ''}
+                alt=""
+                className={`task-image ${!taskImages[index] ? 'task-image-opacity' : ''}`}
+              />
+              <div className="d-flex">
+                {editingTask === index ? (
+                  <button className="btn btn-success" onClick={saveEditedTask}>
+                    Salva
+                  </button>
+                ) : (
+                  <div>
+                    <input
+                      type="checkbox"
+                      checked={task.completed}
+                      onChange={() => toggleCompleted(index)}
+                      style={{ marginRight: "20px" }}
+                    />
+                    <button className="btn btn-warning" onClick={() => editTask(index)}>
+                      Modifica
+                    </button>
+                  </div>
+                )}
+                <button className="btn btn-danger ml-2" onClick={() => confirmRemove(index)}>
+                  <BiTrash />
+                </button>
+              </div>
+            </li>
+          ))}
       </ul>
 
       <Modal show={showModal} onHide={() => setShowModal(false)} backdrop="static" keyboard={false}>
