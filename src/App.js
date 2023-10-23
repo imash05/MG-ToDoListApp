@@ -19,14 +19,48 @@ function App() {
   const [selectedTags, setSelectedTags] = useState([]);
   const [taskDeadline, setTaskDeadline] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('');
-  const [availableTags] = useState([
-    '🛒 Spesa',
-    '💼 Lavoro',
-    '📺 Serie TV',
-    '🎬 Film',
-    '🎮 Giochi',
-    '📦 Altro',
-  ]);
+  const [isEditing, setIsEditing] = useState(false);
+  const [editSelectedCategory, setEditSelectedCategory] = useState('');
+  const [editingTags, setEditingTags] = useState([]);
+  const [selectedBorderColor, setSelectedBorderColor] = useState('lightgray');
+
+
+  const customBorderColors = [
+    { name: 'Blu Pastello', color: '#AED6F1', emoji: '🌊' },
+    { name: 'Verde Acqua', color: '#A3E4D7', emoji: '🌿' },
+    { name: 'Rosa Pallido', color: '#F7CAC9', emoji: '🌸' },
+    { name: 'Marrone Sabbia', color: '#D2B48C', emoji: '🏖️' },
+    { name: 'Lilla Chiaro', color: '#D9A0D9', emoji: '🌼' },
+    { name: 'Giallo Chiaro', color: '#FFFF99', emoji: '☀️' },
+    { name: 'Verde Smeraldo', color: '#50C878', emoji: '🍀' },
+    { name: 'Arancione', color: '#FFA500', emoji: '🍊' },
+    { name: 'Viola Profondo', color: '#8A2BE2', emoji: '💜' },
+    { name: 'Rosso Chiaro', color: '#FF6347', emoji: '❤️' },
+    { name: 'Blu Scuro', color: '#00008B', emoji: '🌌' },
+    { name: 'Verde Menta', color: '#98FB98', emoji: '🌱' },
+    { name: 'Rosa Caldo', color: '#FF69B4', emoji: '💖' },
+    { name: 'Grigio Argento', color: '#C0C0C0', emoji: '⚙️' },
+    { name: 'Turchese', color: '#40E0D0', emoji: '🏝️' },
+  ];
+  
+
+
+  const handleBorderColorChange = (color) => {
+    if (color === "") {
+      setSelectedBorderColor('#efefef'); // Imposta il colore predefinito
+    } else {
+      setSelectedBorderColor(color);
+    }
+    localStorage.setItem('selectedBorderColor', color);
+  };
+
+  useEffect(() => {
+    const savedBorderColor = localStorage.getItem('selectedBorderColor');
+    if (savedBorderColor) {
+      setSelectedBorderColor(savedBorderColor);
+    }
+  }, []);
+
   const tagColors = {
     '🛒 Ingredienti': '#AED6F1',
     '🍞 Pane': '#AED6F1',
@@ -34,45 +68,45 @@ function App() {
     '🥦 Verdure': '#AED6F1',
     '🧀 Latticini': '#AED6F1',
     '🥖 Panetteria': '#AED6F1',
-    '🥩 Carne': '#AED6F1', 
-    '🍷 Bevande': '#AED6F1', 
-    '🥕 Prodotti per la pulizia': '#AED6F1', 
+    '🥩 Carne': '#AED6F1',
+    '🍷 Bevande': '#AED6F1',
+    '🥕 Prodotti per la pulizia': '#AED6F1',
     '💼 Lavoro': '#B0E57C',
     '📅 Scadenza': '#B0E57C',
     '💻 Progetto': '#B0E57C',
     '📈 Rapporto': '#B0E57C',
     '✉️ Email': '#B0E57C',
-    '📑 Documenti': '#B0E57C', 
-    '📊 Riunioni': '#B0E57C', 
-    '📔 Note': '#B0E57C', 
-    '💡 Idee': '#B0E57C', 
-    '📝 Compiti': '#B0E57C', 
+    '📑 Documenti': '#B0E57C',
+    '📊 Riunioni': '#B0E57C',
+    '📔 Note': '#B0E57C',
+    '💡 Idee': '#B0E57C',
+    '📝 Compiti': '#B0E57C',
     '📺 Serie TV': '#F7CAC9',
     '🎬 Film': '#F7CAC9',
     '🎮 Giochi': '#F7CAC9',
     '🎵 Musica': '#F7CAC9',
     '🏞️ Attività fuori': '#F7CAC9',
-    '📚 Lettura': '#F7CAC9', 
-    '🚴 Sport': '#F7CAC9', 
-    '🏊 Piscina': '#F7CAC9', 
-    '🍔 Ristorante': '#F7CAC9', 
-    '🚗 Trasporti': '#F7CAC9', 
-    '🌍 Viaggi': '#F7CAC9', 
-    '📅 Appuntamenti': '#F7CAC9', 
-    '📷 Fotografia': '#F7CAC9', 
+    '📚 Lettura': '#F7CAC9',
+    '🚴 Sport': '#F7CAC9',
+    '🏊 Piscina': '#F7CAC9',
+    '🍔 Ristorante': '#F7CAC9',
+    '🚗 Trasporti': '#F7CAC9',
+    '🌍 Viaggi': '#F7CAC9',
+    '📅 Appuntamenti': '#F7CAC9',
+    '📷 Fotografia': '#F7CAC9',
     '🛋️ Shopping': '#F7CAC9',
-    '📦 Altro': '#F7CAC9', 
-    '🎉 Evento': '#F7CAC9', 
-    '🏠 Casa': '#F7CAC9', 
+    '📦 Altro': '#F7CAC9',
+    '🎉 Evento': '#F7CAC9',
+    '🏠 Casa': '#F7CAC9',
     '💤 Sonno': '#F7CAC9',
     '🧹 Pulizia': '#F7CAC9',
     '🍫 Snack': '#AED6F1',
     '📚 Libri di testo': '#A3E4D7',
     '📝 Appunti': '#A3E4D7',
-    '📐 Materiali scolastici':'#A3E4D7', 
-    '📖 Compiti':'#A3E4D7',
+    '📐 Materiali scolastici': '#A3E4D7',
+    '📖 Compiti': '#A3E4D7',
   };
-  
+
 
   const tagCategories = [
     {
@@ -107,6 +141,13 @@ function App() {
       setSelectedTags([...selectedTags, tag]);
     } else {
       setSelectedTags(selectedTags.filter((selectedTag) => selectedTag !== tag));
+    }
+  };
+  const handleEditTagSelection = (tag) => {
+    if (editingTags.includes(tag)) {
+      setEditingTags(editingTags.filter((selectedTag) => selectedTag !== tag));
+    } else {
+      setEditingTags([...editingTags, tag]);
     }
   };
 
@@ -153,34 +194,29 @@ function App() {
     }
   }, []);
 
-  const toggleTag = (tag) => {
-    if (selectedTags.includes(tag)) {
-      setSelectedTags(selectedTags.filter((selectedTag) => selectedTag !== tag));
-    } else {
-      setSelectedTags([...selectedTags, tag]);
-    }
-  };
 
-  const TagSelector = ({ categories, selectedCategory, onSelectCategory, selectedTags, onSelectTag }) => {
+  function TagSelector({ categories, selectedCategory, onSelectCategory, selectedTags, onSelectTag }) {
     return (
       <div className="d-flex align-items-center">
-        <div>
+        <div className="col-md-6">
           <label>Seleziona la categoria:</label>
-          <select value={selectedCategory} onChange={(e) => onSelectCategory(e.target.value)}>
-            <option value="">Tutte le categorie</option>
-            {categories.map((category) => (
+          <select className="form-control" value={selectedCategory || ""} onChange={(e) => onSelectCategory(e.target.value)}>
+            <option value=""></option>
+            {categories && Array.isArray(categories) && categories.map((category) => (
               <option key={category.name} value={category.name}>
                 {category.name}
               </option>
             ))}
           </select>
         </div>
-        <div>
+        <div className="col-md-6">
           <label>Seleziona le tag:</label>
           {selectedCategory &&
+            categories &&
+            Array.isArray(categories) &&
             categories
               .find((category) => category.name === selectedCategory)
-              .tags.map((tag) => (
+              ?.tags.map((tag) => (
                 <button
                   key={tag}
                   style={{ backgroundColor: tagColors[tag] || 'black', color: "white" }}
@@ -193,9 +229,9 @@ function App() {
         </div>
       </div>
     );
-  };
+  }
 
-  function CategoryTagModal({ show, onClose }) {
+  function CategoryTagModal({ show, onClose, categories, selectedCategory, onSelectCategory, selectedTags, onSelectTag }) {
     // ... (Puoi inserire qui il codice per la selezione di categoria e tag)
     return (
       <Modal show={show} onHide={onClose} backdrop="static" keyboard={false}>
@@ -205,17 +241,26 @@ function App() {
         <Modal.Body>
           <TagSelector
             categories={tagCategories}
-            selectedCategory={selectedCategory}
-            onSelectCategory={handleCategoryChange}
+            selectedCategory={isEditing ? editSelectedCategory : selectedCategory}
+            onSelectCategory={(category) => {
+              if (isEditing) {
+                setEditSelectedCategory(category);
+              } else {
+                handleCategoryChange(category);
+              }
+            }}
             selectedTags={selectedTags}
             onSelectTag={handleTagSelection}
           />
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={onClose}>
+          <Button variant="secondary" onClick={handleCloseCategoryTagModal}>
             Chiudi
           </Button>
-          <Button variant="primary" onClick={onClose}>
+          <Button variant="primary" onClick={() => {
+            handleCloseCategoryTagModal(); // Chiudi il modal
+            addTask(); // Aggiungi il compito con le categorie e le tag selezionate
+          }}>
             Salva
           </Button>
         </Modal.Footer>
@@ -266,11 +311,15 @@ function App() {
   };
 
   const editTask = (index) => {
+    setIsEditing(true);
     setEditingTask(index);
     setNewTask(tasks[index].text);
     setTaskDeadline(tasks[index].deadline || '');
-    setSelectedTags([...tasks[index].tags]);
+    setEditingTags([...tasks[index].tags]);
+    setEditSelectedCategory(selectedCategory);
   };
+
+
 
 
   const saveEditedTask = () => {
@@ -280,16 +329,19 @@ function App() {
         ...updatedTasks[editingTask],
         text: newTask,
         deadline: taskDeadline,
-        tags: [...selectedTags],
+        tags: [...editingTags], // Usa le tag selezionate durante la modifica
       };
       setTasks(updatedTasks);
       localStorage.setItem('tasks', JSON.stringify(updatedTasks));
       setEditingTask(null);
       setNewTask('');
       setTaskDeadline('');
-      setSelectedTags([]);
+      setEditingTags([]); // Reimposta le tag selezionate durante la modifica
+      setIsEditing(false);
+      setEditSelectedCategory('');
     }
   };
+
 
   const getFormattedTimestamp = () => {
     const now = new Date();
@@ -391,7 +443,21 @@ function App() {
           </button>
         </div>
       </div>
-      <CategoryTagModal show={showCategoryTagModal} onClose={handleCloseCategoryTagModal} />
+      <CategoryTagModal
+        show={showCategoryTagModal}
+        onClose={handleCloseCategoryTagModal}
+        categories={tagCategories}
+        selectedCategory={isEditing ? editSelectedCategory : selectedCategory}
+        onSelectCategory={(category) => {
+          if (isEditing) {
+            setEditSelectedCategory(category);
+          } else {
+            handleCategoryChange(category);
+          }
+        }}
+        selectedTags={selectedTags}
+        onSelectTag={handleTagSelection}
+      />
       {validationError && <div className="text-danger">{validationError}</div>}
       {/*<TagSelector
         categories={tagCategories}
@@ -400,7 +466,22 @@ function App() {
         selectedTags={selectedTags}
         onSelectTag={handleTagSelection}
         />*/}
-      <ul className="list-group">
+      <div className="border-color-selector">
+        <label>Scegli il colore del bordo:</label>
+        <select
+          value={selectedBorderColor === null ? '' : selectedBorderColor}
+          onChange={(e) => handleBorderColorChange(e.target.value)}
+          style={{ borderColor: selectedBorderColor === '' ? '#f0f8ff' : selectedBorderColor }}
+        >
+          <option value="">Predefinito</option>
+          {customBorderColors.map((colorOption) => (
+            <option key={colorOption.color} value={colorOption.color}>
+              {colorOption.name} {colorOption.emoji}
+            </option>
+          ))}
+        </select>
+      </div>
+      <ul className="list-group" >
         {tasks
           /*.filter((task) => {
             const hasSelectedTag = selectedTags.some((tag) => task.tags.includes(tag));
@@ -409,12 +490,10 @@ function App() {
             return hasSelectedTag && isCategoryMatch;
           })*/ /*FILTRO PER LE TAG*/
           .map((task, index) => (
-            <li
-              key={index}
-              className={`list-group-item d-flex justify-content-between align-items-center ${task.completed ? 'completed' : ''
-                }`}
-            >
-              {editingTask === index ? (
+            <li key={index} className={`list-group-item d-flex justify-content-between align-items-center ${task.completed ? 'completed' : ''}`} style={{
+              border: selectedBorderColor ? `2px solid ${selectedBorderColor}` : 'lightgray',
+            }}>
+              {isEditing && editingTask === index ? (
                 <div>
                   <input
                     type="text"
@@ -426,7 +505,19 @@ function App() {
                     value={taskDeadline}
                     onChange={(e) => setTaskDeadline(e.target.value)}
                   />
-                  <TagSelector tags={availableTags} selectedTags={selectedTags} onSelectTag={toggleTag} style={{ color: "white" }} />
+                  <TagSelector
+                    categories={tagCategories}
+                    selectedCategory={isEditing ? editSelectedCategory : selectedCategory}
+                    onSelectCategory={(category) => {
+                      if (isEditing) {
+                        setEditSelectedCategory(category);
+                      } else {
+                        handleCategoryChange(category);
+                      }
+                    }}
+                    selectedTags={editingTags} // Usa le tag selezionate durante la modifica
+                    onSelectTag={handleEditTagSelection} // Usa la funzione per gestire la selezione delle tag durante la modifica
+                  />
                   <button className="btn btn-success btn-category-tag" onClick={saveEditedTask}>
                     Salva
                   </button>
@@ -517,10 +608,10 @@ function App() {
         <Modal.Header closeButton>
           <Modal.Title>Rimozione Completata</Modal.Title>
         </Modal.Header>
-        <Modal.Body>La task è stata rimossa con successo.</Modal.Body>
+        <Modal.Body>Task rimossa/e con successo.</Modal.Body>
         <Modal.Footer>
           <Button variant="primary" onClick={handleConfirmationModalClose}>
-            Torna all'inizio
+            Torna indietro
           </Button>
         </Modal.Footer>
       </Modal>
