@@ -60,6 +60,7 @@
   flex-wrap: wrap;
   gap: 5px;
   margin-top: 10px; /* Aggiunto spazio tra i tag e gli altri contenuti */
+  color: white;
 }
 
 .tag {
@@ -87,6 +88,10 @@
   border: solid #5a9282;
 }
 
+.btn-category-tag {
+  margin-top: 10px;
+  margin-left: 10px;
+}
 
 @media (max-width: 564px) {
   .input-group input[type="text"],
@@ -139,3 +144,23 @@
   }
 }
 
+@media (max-width: 564px) {
+  .input-group select {
+    width: 100%; /* Larghezza completa su schermi piccoli */
+    margin: 5px 0; /* Aggiunto spazio tra i select */
+    padding: 10px;
+    font-size: 16px;
+    border: #5a9282;
+    border-radius: 5px;
+  }
+
+  .btn-category-tag {
+    width: 100%; /* Pulsante largo su schermi piccoli */
+    margin: 5px 0; /* Aggiunto spazio tra il pulsante */
+    padding: 10px;
+    font-size: 16px;
+    border: #5a9282;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+}
