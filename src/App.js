@@ -436,7 +436,7 @@ function App() {
     <div className="container mt-5">
       <h1 className="text-center align-top" style={titleStyle}>
         MG TO DO LIST
-        <button className="btn btn-info ml-2 align-top" onClick={openCreditsModal} style={{width:"100px"}}>
+        <button className="btn btn-info ml-2 align-top mt-1" onClick={openCreditsModal} style={{width:"100px"}}>
           Credits
         </button>
       </h1>
