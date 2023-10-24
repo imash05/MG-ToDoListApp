@@ -23,31 +23,34 @@ function App() {
   const [editSelectedCategory, setEditSelectedCategory] = useState('');
   const [editingTags, setEditingTags] = useState([]);
   const [selectedBorderColor, setSelectedBorderColor] = useState('lightgray');
+  const [showCreditsModal, setShowCreditsModal] = useState(false);
 
+  const openCreditsModal = () => {
+    setShowCreditsModal(true);
+  };
 
   const customBorderColors = [
-    { name: 'Blu Pastello', color: '#AED6F1', emoji: '🌊' },
-    { name: 'Verde Acqua', color: '#A3E4D7', emoji: '🌿' },
-    { name: 'Rosa Pallido', color: '#F7CAC9', emoji: '🌸' },
-    { name: 'Marrone Sabbia', color: '#D2B48C', emoji: '🏖️' },
-    { name: 'Lilla Chiaro', color: '#D9A0D9', emoji: '🌼' },
-    { name: 'Giallo Chiaro', color: '#FFFF99', emoji: '☀️' },
+    { name: 'MG Theme', color: '#609b8a', emoji: '🦖' },
+    { name: 'Rosa Ciliegia', color: '#FFB6C1', emoji: '🍒' },
+    { name: 'Menta Fresca', color: '#00FF7F', emoji: '🍃' },
+    { name: 'Limone Brillante', color: '#FFFF00', emoji: '🍋' },
+    { name: 'Blu Oceano', color: '#0000FF', emoji: '🌊' },
+    { name: 'Lavanda Profumata', color: '#E6E6FA', emoji: '🌾' },
+    { name: 'Pesca Dolce', color: '#FFDAB9', emoji: '🍑' },
     { name: 'Verde Smeraldo', color: '#50C878', emoji: '🍀' },
-    { name: 'Arancione', color: '#FFA500', emoji: '🍊' },
-    { name: 'Viola Profondo', color: '#8A2BE2', emoji: '💜' },
-    { name: 'Rosso Chiaro', color: '#FF6347', emoji: '❤️' },
-    { name: 'Blu Scuro', color: '#00008B', emoji: '🌌' },
-    { name: 'Verde Menta', color: '#98FB98', emoji: '🌱' },
-    { name: 'Rosa Caldo', color: '#FF69B4', emoji: '💖' },
-    { name: 'Grigio Argento', color: '#C0C0C0', emoji: '⚙️' },
-    { name: 'Turchese', color: '#40E0D0', emoji: '🏝️' },
+    { name: 'Arancia Solare', color: '#FFA500', emoji: '🌞' },
+    { name: 'Viola Reale', color: '#800080', emoji: '👑' },
+    { name: 'Rosso Passione', color: '#FF0000', emoji: '❤️' },
+    { name: 'Blu Notte', color: '#000080', emoji: '🌌' },
+    { name: 'Verde Smeraldo', color: '#008000', emoji: '🌱' },
+    { name: 'Rosa Sogno', color: '#FF69B4', emoji: '💭' },
+    { name: 'Argento Luminoso', color: '#C0C0C0', emoji: '✨' },
+    { name: 'Turchese Tropicale', color: '#40E0D0', emoji: '🏝️' },
   ];
-  
-
 
   const handleBorderColorChange = (color) => {
     if (color === "") {
-      setSelectedBorderColor('#efefef'); // Imposta il colore predefinito
+      setSelectedBorderColor('#efefef');
     } else {
       setSelectedBorderColor(color);
     }
@@ -201,7 +204,7 @@ function App() {
         <div className="col-md-6">
           <label>Seleziona la categoria:</label>
           <select className="form-control" value={selectedCategory || ""} onChange={(e) => onSelectCategory(e.target.value)}>
-            <option value=""></option>
+            <option value="">Categorie</option>
             {categories && Array.isArray(categories) && categories.map((category) => (
               <option key={category.name} value={category.name}>
                 {category.name}
@@ -267,6 +270,27 @@ function App() {
       </Modal>
     );
   }
+
+  const CreditsModal = () => {
+    return (
+      <Modal show={showCreditsModal} onHide={() => setShowCreditsModal(false)} backdrop="static" keyboard={false}>
+        <Modal.Header closeButton>
+          <img src="https://i.ibb.co/X2wnn81/MGLogo.png" alt="Logo" style={{ width: '50px', marginRight: '20px' }} />
+          <Modal.Title>Credits</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <p>App sviluppata da [MG MARCO GESUALDI]</p>
+          <p>Contattami a [marcogesualdi2002@gmail.com] </p>
+          <p><p>GitHub: [MGMarcoGesualdi]</p></p>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="primary" onClick={() => setShowCreditsModal(false)}>
+            Chiudi
+          </Button>
+        </Modal.Footer>
+      </Modal>
+    );
+  };
 
 
 
@@ -410,15 +434,19 @@ function App() {
 
   return (
     <div className="container mt-5">
-      <h1 className="text-center" style={titleStyle}>
+      <h1 className="text-center align-top" style={titleStyle}>
         MG TO DO LIST
+        <button className="btn btn-info ml-2 align-top" onClick={openCreditsModal} style={{width:"100px"}}>
+          Credits
+        </button>
       </h1>
+      <CreditsModal />
       <div className="input-group mb-3">
         <input
           className="custom-input"
-          placeholder="Aggiungi un nuovo compito (max 100 caratteri)"
+          placeholder="Aggiungi un nuovo compito (max 400 caratteri)"
           value={newTask}
-          onChange={(e) => setNewTask(e.target.value.substring(0, 100))}
+          onChange={(e) => setNewTask(e.target.value.substring(0, 400))}
           onKeyPress={(e) => {
             if (e.key === 'Enter') {
               addTask();
@@ -523,15 +551,9 @@ function App() {
                   </button>
                 </div>
               ) : (
-                <span
-                  onClick={() => toggleCompleted(index)}
-                  style={{
-                    cursor: 'pointer',
-                    textDecoration: task.completed ? 'line-through' : 'none',
-                  }}
-                >
+                <div className="task-text">
                   {task.text}
-                </span>
+                </div>
               )}
               <span className="text-muted">{task.timestamp}</span>
               <span className="text-primary">
