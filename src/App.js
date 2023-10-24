@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "bootswatch/dist/minty/bootstrap.min.css";
 import './App.css';
-import { BiTrash, BiPlus, BiImageAdd } from 'react-icons/bi';
+import { BiTrash, BiPlus, BiImageAdd, BiLogoGithub } from 'react-icons/bi';
 import { MdDelete } from 'react-icons/md';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
@@ -279,9 +279,9 @@ function App() {
           <Modal.Title>Credits</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <p>App sviluppata da [MG MARCO GESUALDI]</p>
-          <p>Contattami a [marcogesualdi2002@gmail.com] </p>
-          <p><p>GitHub: [MGMarcoGesualdi]</p></p>
+          <p>🐼App sviluppata da MG MARCO GESUALDI</p>
+          <p>📧 Contattami: marcogesualdi2002@gmail.com </p>
+          <p><BiLogoGithub style={{color:"black",marginLeft:"3px"}}/> GitHub: MGMarcoGesualdi</p>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="primary" onClick={() => setShowCreditsModal(false)}>
