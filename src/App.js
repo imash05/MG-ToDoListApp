@@ -160,7 +160,7 @@ function App() {
     toolbar: [
       [{ 'header': '1' }, { 'header': '2' }, { 'font': [] }],
       [{ 'list': 'ordered' }, { 'list': 'bullet' }],
-      ['bold', 'italic', 'underline', 'strike', 'link'],
+      ['bold', 'italic', 'underline', 'strike'],
     ],
   };
 
