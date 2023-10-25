@@ -321,13 +321,13 @@ function App() {
   };
 
   const handleRemoveAll = () => {
-    const updatedTasks = tasks.filter((_, index) => index !== taskToRemove);
-    setTasks([]);
-    setTaskImages({});
-    localStorage.setItem('tasks', JSON.stringify(updatedTasks));
+    localStorage.removeItem('tasks'); // Rimuovi le attività dal localStorage
+    setTasks([]); // Rimuovi le attività dallo stato
+    setTaskImages({}); // Rimuovi anche le immagini, se necessario
     setShowModal(false);
     setShowConfirmationModal(true);
   };
+  
 
   const handleConfirmationModalClose = () => {
     setShowConfirmationModal(false);
@@ -411,9 +411,10 @@ function App() {
     const savedTasks = localStorage.getItem('tasks');
     if (savedTasks) {
       setTasks(JSON.parse(savedTasks));
-      const savedImages = JSON.parse(localStorage.getItem('taskImages'));
-      setTaskImages(savedImages || {});
     }
+  
+    const savedImages = JSON.parse(localStorage.getItem('taskImages'));
+    setTaskImages(savedImages || {});
   }, []);
 
   const parseCustomDate = (dateString) => {
