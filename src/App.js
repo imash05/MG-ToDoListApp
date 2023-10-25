@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "bootswatch/dist/minty/bootstrap.min.css";
 import './App.css';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 import { BiTrash, BiPlus, BiImageAdd, BiLogoGithub } from 'react-icons/bi';
 import { MdDelete } from 'react-icons/md';
 import Modal from 'react-bootstrap/Modal';
@@ -154,6 +156,13 @@ function App() {
     }
   };
 
+  const modules = {
+    toolbar: [
+      [{ 'header': '1' }, { 'header': '2' }, { 'font': [] }],
+      [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+      ['bold', 'italic', 'underline', 'strike', 'link'],
+    ],
+  };
 
   const titleStyle = {
     color: '#5a9282',
@@ -235,6 +244,7 @@ function App() {
   }
 
   function CategoryTagModal({ show, onClose, categories, selectedCategory, onSelectCategory, selectedTags, onSelectTag }) {
+    // ... (Puoi inserire qui il codice per la selezione di categoria e tag)
     return (
       <Modal show={show} onHide={onClose} backdrop="static" keyboard={false}>
         <Modal.Header closeButton>
@@ -260,8 +270,8 @@ function App() {
             Chiudi
           </Button>
           <Button variant="primary" onClick={() => {
-            handleCloseCategoryTagModal(); // Chiude il modal
-            addTask(); // Aggiunge il compito con le categorie e le tag selezionate
+            handleCloseCategoryTagModal(); // Chiudi il modal
+            addTask(); // Aggiungi il compito con le categorie e le tag selezionate
           }}>
             Salva
           </Button>
@@ -280,7 +290,7 @@ function App() {
         <Modal.Body>
           <p>🐼App sviluppata da MG MARCO GESUALDI</p>
           <p>📧 Contattami: marcogesualdi2002@gmail.com </p>
-          <p><BiLogoGithub style={{color:"black",marginLeft:"3px"}}/> GitHub: MGMarcoGesualdi</p>
+          <p><BiLogoGithub style={{ color: "black", marginLeft: "3px" }} /> GitHub: MGMarcoGesualdi</p>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="primary" onClick={() => setShowCreditsModal(false)}>
@@ -320,13 +330,12 @@ function App() {
   };
 
   const handleRemoveAll = () => {
-    localStorage.removeItem('tasks'); // Rimuove le attività dal localStorage
-    setTasks([]); // Rimuove le attività dallo stato
-    setTaskImages({}); // Rimuove anche le immagini, se necessario
+    localStorage.removeItem('tasks');
+    setTasks([]);
+    setTaskImages({});
     setShowModal(false);
     setShowConfirmationModal(true);
   };
-  
 
   const handleConfirmationModalClose = () => {
     setShowConfirmationModal(false);
@@ -411,7 +420,7 @@ function App() {
     if (savedTasks) {
       setTasks(JSON.parse(savedTasks));
     }
-  
+
     const savedImages = JSON.parse(localStorage.getItem('taskImages'));
     setTaskImages(savedImages || {});
   }, []);
@@ -436,13 +445,24 @@ function App() {
     <div className="container mt-5">
       <h1 className="text-center align-top" style={titleStyle}>
         MG TO DO LIST
-        <button className="btn btn-info ml-2 align-top mt-1" onClick={openCreditsModal} style={{width:"100px"}}>
+        <button className="btn btn-info ml-2 align-top mt-1" onClick={openCreditsModal} style={{ width: "100px" }}>
           Credits
         </button>
       </h1>
       <CreditsModal />
+      <ReactQuill
+        value={newTask}
+        onChange={setNewTask}
+        modules={modules}
+        style={{
+          border: '1px solid #5a9282',
+          borderRadius: '2px',
+          colorText:"#5a9282",
+        }}
+        theme="snow"
+      />
       <div className="input-group mb-3">
-        <input
+        {/*<input
           className="custom-input"
           placeholder="Aggiungi un nuovo compito (max 400 caratteri)"
           value={newTask}
@@ -452,7 +472,7 @@ function App() {
               addTask();
             }
           }}
-        />
+        />*/}
         <input
           type="datetime-local"
           className="form-control"
@@ -551,9 +571,7 @@ function App() {
                   </button>
                 </div>
               ) : (
-                <div className="task-text">
-                  {task.text}
-                </div>
+                <div className="task-text" dangerouslySetInnerHTML={{ __html: task.text }}></div>
               )}
               <span className="text-muted">{task.timestamp}</span>
               <span className="text-primary">
