@@ -235,7 +235,6 @@ function App() {
   }
 
   function CategoryTagModal({ show, onClose, categories, selectedCategory, onSelectCategory, selectedTags, onSelectTag }) {
-    // ... (Puoi inserire qui il codice per la selezione di categoria e tag)
     return (
       <Modal show={show} onHide={onClose} backdrop="static" keyboard={false}>
         <Modal.Header closeButton>
@@ -261,8 +260,8 @@ function App() {
             Chiudi
           </Button>
           <Button variant="primary" onClick={() => {
-            handleCloseCategoryTagModal(); // Chiudi il modal
-            addTask(); // Aggiungi il compito con le categorie e le tag selezionate
+            handleCloseCategoryTagModal(); // Chiude il modal
+            addTask(); // Aggiunge il compito con le categorie e le tag selezionate
           }}>
             Salva
           </Button>
@@ -321,9 +320,9 @@ function App() {
   };
 
   const handleRemoveAll = () => {
-    localStorage.removeItem('tasks'); // Rimuovi le attività dal localStorage
-    setTasks([]); // Rimuovi le attività dallo stato
-    setTaskImages({}); // Rimuovi anche le immagini, se necessario
+    localStorage.removeItem('tasks'); // Rimuove le attività dal localStorage
+    setTasks([]); // Rimuove le attività dallo stato
+    setTaskImages({}); // Rimuove anche le immagini, se necessario
     setShowModal(false);
     setShowConfirmationModal(true);
   };
