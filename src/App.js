@@ -454,6 +454,7 @@ function App() {
         value={newTask}
         onChange={setNewTask}
         modules={modules}
+        placeholder="Aggiungi un nuovo compito"
         style={{
           border: '1px solid #5a9282',
           borderRadius: '2px',
