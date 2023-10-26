@@ -477,6 +477,7 @@ function App() {
         <input
           type="datetime-local"
           className="form-control"
+          placeholder="Data di scadenza"
           value={taskDeadline}
           onChange={(e) => setTaskDeadline(e.target.value)}
         />
