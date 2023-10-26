@@ -163,6 +163,7 @@ function App() {
       ['bold', 'italic', 'underline', 'strike'],
     ],
   };
+  
 
   const titleStyle = {
     color: '#5a9282',
@@ -477,7 +478,6 @@ function App() {
         <input
           type="datetime-local"
           className="form-control"
-          placeholder="Data di scadenza"
           value={taskDeadline}
           onChange={(e) => setTaskDeadline(e.target.value)}
         />
