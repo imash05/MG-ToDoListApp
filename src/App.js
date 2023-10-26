@@ -163,7 +163,7 @@ function App() {
       ['bold', 'italic', 'underline', 'strike'],
     ],
   };
-  
+
 
   const titleStyle = {
     color: '#5a9282',
@@ -459,7 +459,7 @@ function App() {
         style={{
           border: '1px solid #5a9282',
           borderRadius: '2px',
-          colorText:"#5a9282",
+          colorText: "#5a9282",
         }}
         theme="snow"
       />
@@ -481,9 +481,11 @@ function App() {
           value={taskDeadline}
           onChange={(e) => setTaskDeadline(e.target.value)}
         />
-        <button className="btn btn-primary" onClick={() => setShowCategoryTagModal(true)}>
-          Seleziona Categoria e Tags
-        </button>
+        <div className="input-group-append">
+          <button className="btn btn-primary" onClick={() => setShowCategoryTagModal(true)}>
+            Seleziona Categoria e Tags
+          </button>
+        </div>
         <div className="input-group-append">
           <button className="btn btn-primary" onClick={addTask}>
             <BiPlus />
