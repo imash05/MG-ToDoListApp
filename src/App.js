@@ -289,7 +289,7 @@ function App() {
           <Modal.Title>Credits</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <p>🐼App sviluppata da MG MARCO GESUALDI</p>
+          <p>🐼 App sviluppata da MG MARCO GESUALDI</p>
           <p>📧 Contattami: marcogesualdi2002@gmail.com </p>
           <p><BiLogoGithub style={{ color: "black", marginLeft: "3px" }} /> GitHub: MGMarcoGesualdi</p>
         </Modal.Body>
