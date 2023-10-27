@@ -108,6 +108,12 @@ button.custom-link {
   word-wrap: break-word; /* Permette il wrapping del testo */
 }
 
+.text{
+  font-size: 15px;
+  margin-top: 15px;
+  margin-left: 5px;
+}
+
 @media (max-width: 564px) {
   .input-group input[type="text"],
   .input-group input[type="datetime-local"] {
