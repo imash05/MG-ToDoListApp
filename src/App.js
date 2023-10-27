@@ -446,7 +446,7 @@ function App() {
     <div className="container mt-5">
       <h1 className="text-center align-top" style={titleStyle}>
         MG TO DO LIST
-        <button className="btn btn-info ml-2 align-top mt-1" onClick={openCreditsModal} style={{ width: "100px" }}>
+        <button className="btn btn-info ml-2 mb-4 btn-sm" onClick={openCreditsModal} style={{ width: "100px"}}>
           Credits
         </button>
       </h1>
@@ -475,12 +475,15 @@ function App() {
             }
           }}
         />*/}
-        <input
-          type="datetime-local"
-          className="form-control"
-          value={taskDeadline}
-          onChange={(e) => setTaskDeadline(e.target.value)}
-        />
+        <div className="d-flex">
+          <span className="text">Data di scadenza: </span>
+          <input
+            type="datetime-local"
+            className="form-control mt-3"
+            value={taskDeadline}
+            onChange={(e) => setTaskDeadline(e.target.value)}
+          />
+        </div>
         <div className="input-group-append">
           <button className="btn btn-primary" onClick={() => setShowCategoryTagModal(true)}>
             Seleziona Categoria e Tags
