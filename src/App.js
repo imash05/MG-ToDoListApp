@@ -170,14 +170,6 @@ function App() {
     fontFamily: 'Acme, sans-serif',
   };
 
-
-  useEffect(() => {
-    const savedTasks = localStorage.getItem('tasks');
-    if (savedTasks) {
-      setTasks(JSON.parse(savedTasks));
-    }
-  }, []);
-
   const addTask = () => {
     if (newTask.trim() !== '') {
       const parsedDeadline = taskDeadline ? parseCustomDate(taskDeadline) : null;
@@ -188,18 +180,20 @@ function App() {
         image: taskImages[tasks.length] || '',
         deadline: parsedDeadline,
         tags: [...selectedTags],
+        borderColor: selectedBorderColor, // Aggiungi il colore del bordo
       };
 
       const updatedTasks = [...tasks, taskWithTimestamp];
       setTasks(updatedTasks);
       setNewTask('');
       setTaskImages({ ...taskImages, [tasks.length]: null });
-      localStorage.setItem('tasks', JSON.stringify([...tasks, taskWithTimestamp])); // Salva le attività nel localStorage
+      localStorage.setItem('tasks', JSON.stringify([...tasks, taskWithTimestamp]));
       setValidationError(null);
     } else {
       setValidationError('Il campo non può essere vuoto.');
     }
   };
+
   useEffect(() => {
     const savedTasks = localStorage.getItem('tasks');
     if (savedTasks) {
@@ -208,7 +202,7 @@ function App() {
   }, []);
 
 
-  function TagSelector({ categories, selectedCategory, onSelectCategory, selectedTags, onSelectTag }) {
+  const TagSelector = ({ categories, selectedCategory, onSelectCategory, selectedTags, onSelectTag }) => {
     return (
       <div className="d-flex align-items-center">
         <div className="col-md-6">
@@ -350,10 +344,8 @@ function App() {
     setTaskDeadline(tasks[index].deadline || '');
     setEditingTags([...tasks[index].tags]);
     setEditSelectedCategory(selectedCategory);
+    setSelectedBorderColor(tasks[index].borderColor || '');
   };
-
-
-
 
   const saveEditedTask = () => {
     if (newTask.trim() !== '') {
@@ -446,7 +438,7 @@ function App() {
     <div className="container mt-5">
       <h1 className="text-center align-top" style={titleStyle}>
         MG TO DO LIST
-        <button className="btn btn-info ml-2 mb-4 btn-sm" onClick={openCreditsModal} style={{ width: "100px"}}>
+        <button className="btn btn-info ml-2 mb-4 btn-sm" onClick={openCreditsModal} style={{ width: "100px" }}>
           Credits
         </button>
       </h1>
@@ -490,7 +482,7 @@ function App() {
           </button>
         </div>
         <div className="input-group-append">
-          <button className="btn btn-primary" onClick={addTask}>
+          <button className="btn btn-primary" onClick={addTask} aria-label="Add Task">
             <BiPlus />
           </button>
           <button className="btn btn-danger ml-1" onClick={handleRemoveAll}>
@@ -545,16 +537,18 @@ function App() {
             return hasSelectedTag && isCategoryMatch;
           })*/ /*FILTRO PER LE TAG*/
           .map((task, index) => (
-            <li key={index} className={`list-group-item d-flex justify-content-between align-items-center ${task.completed ? 'completed' : ''}`} style={{
-              border: selectedBorderColor ? `2px solid ${selectedBorderColor}` : 'lightgray',
-            }}>
+            <li key={index} 
+              className={`list-group-item d-flex justify-content-between align-items-center ${ task.completed ? 'completed' : ''}`}
+              style={{
+                border: task.borderColor ? `2px solid ${task.borderColor}` : `2px solid ${selectedBorderColor || 'lightgray'}`,
+              }} >
               {isEditing && editingTask === index ? (
                 <div>
-                  <input
+                  {/*<input
                     type="text"
                     value={newTask}
                     onChange={(e) => setNewTask(e.target.value)}
-                  />
+                  />*/}
                   <input
                     type="datetime-local"
                     value={taskDeadline}
