@@ -537,8 +537,8 @@ function App() {
             return hasSelectedTag && isCategoryMatch;
           })*/ /*FILTRO PER LE TAG*/
           .map((task, index) => (
-            <li key={index} 
-              className={`list-group-item d-flex justify-content-between align-items-center ${ task.completed ? 'completed' : ''}`}
+            <li key={index}
+              className={`list-group-item d-flex justify-content-between align-items-center ${task.completed ? 'completed' : ''}`}
               style={{
                 border: task.borderColor ? `2px solid ${task.borderColor}` : `2px solid ${selectedBorderColor || 'lightgray'}`,
               }} >
@@ -549,10 +549,14 @@ function App() {
                     value={newTask}
                     onChange={(e) => setNewTask(e.target.value)}
                   />*/}
+                  <p className="mt-2" style={{ color: 'gray' }}>
+                    Per modificare il testo è possibile usare la casella di testo sopra.
+                  </p>
                   <input
                     type="datetime-local"
                     value={taskDeadline}
                     onChange={(e) => setTaskDeadline(e.target.value)}
+                    className='ml-3'
                   />
                   <TagSelector
                     categories={tagCategories}
