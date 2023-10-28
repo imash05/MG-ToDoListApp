@@ -122,12 +122,13 @@ function App() {
     '💤 Sonno': '#F7CAC9',
     '🧹 Pulizia': '#F7CAC9',
     '🍫 Snack': '#AED6F1',
-    '📚 Libri di testo': '#A3E4D7',
+    '📚 Studio': '#A3E4D7',
     '📝 Appunti': '#A3E4D7',
     '📐 Materiali scolastici': '#A3E4D7',
     '📖 Compiti': '#A3E4D7',
+    '🎓 Esami':'#A3E4D7',
+    '🖋️ Progetti':'#A3E4D7',
   };
-
 
   const tagCategories = [
     {
@@ -148,7 +149,7 @@ function App() {
     },
     {
       name: 'Scuola',
-      tags: ['📚 Libri di testo', '📝 Appunti', '📐 Materiali scolastici', '📖 Compiti'],
+      tags: ['📚 Studio', '📝 Appunti', '📐 Materiali scolastici', '📖 Compiti','🎓 Esami','🖋️ Progetti',],
     }
   ];
 
