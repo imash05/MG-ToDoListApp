@@ -1,0 +1,14 @@
+{
+    "pages": {
+      "home": {
+        "title": {
+          "greeting": "test",
+          "name": "dfdfdf",
+          "tagline": "test"
+        },
+        "paragraph": "test",
+        "link": "test"
+      }
+    }
+  }
+  

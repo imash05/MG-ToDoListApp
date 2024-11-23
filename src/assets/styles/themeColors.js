@@ -1,0 +1,138 @@
+const themeColors = [
+    {
+      name: 'MG Theme',
+      emoji: '🦖',
+      primaryColor: '#609b8a',
+      secondaryTextColor: '#89b5a6', // Più chiaro per testi secondari
+      backgroundColor: '#cfe4de', // Ancora più chiaro per sfondo
+    },
+    {
+      name: 'Rosa Ciliegia',
+      emoji: '🌸',
+      primaryColor: '#FFB6C1',
+      secondaryTextColor: '#FFC7CE',
+      backgroundColor: '#FFE9EC',
+    },
+    {
+      name: 'Menta Fresca',
+      emoji: '🍀',
+      primaryColor: '#00FF7F',
+      secondaryTextColor: '#4DFF9F',
+      backgroundColor: '#DFFFEB',
+    },
+    {
+      name: 'Limone Brillante',
+      emoji: '🌞',
+      primaryColor: '#FFFF00',
+      secondaryTextColor: '#FFFF80',
+      backgroundColor: '#FFFFCC',
+    },
+    {
+      name: 'Blu Oceano',
+      emoji: '🏝️',
+      primaryColor: '#0000FF',
+      secondaryTextColor: '#6666FF',
+      backgroundColor: '#CCCCFF',
+    },
+    {
+      name: 'Pesca Dolce',
+      emoji: '🍑',
+      primaryColor: '#FFDAB9',
+      secondaryTextColor: '#FFE6CC',
+      backgroundColor: '#FFF3E5',
+    },
+    {
+      name: 'Verde Smeraldo',
+      emoji: '🌿',
+      primaryColor: '#50C878',
+      secondaryTextColor: '#7FD49C',
+      backgroundColor: '#DFF2E7',
+    },
+    {
+      name: 'Arancia Solare',
+      emoji: '🍊',
+      primaryColor: '#FFA500',
+      secondaryTextColor: '#FFBF40',
+      backgroundColor: '#FFE5CC',
+    },
+    {
+      name: 'Viola Reale',
+      emoji: '💜',
+      primaryColor: '#800080',
+      secondaryTextColor: '#A64CA6',
+      backgroundColor: '#E5CCE5',
+    },
+    {
+      name: 'Rosso Passione',
+      emoji: '❤️',
+      primaryColor: '#FF0000',
+      secondaryTextColor: '#FF6666',
+      backgroundColor: '#FFCCCC',
+    },
+    {
+      name: 'Blu Notte',
+      emoji: '🌌',
+      primaryColor: '#000080',
+      secondaryTextColor: '#4D4D99',
+      backgroundColor: '#CCCCE6',
+    },
+    {
+      name: 'Rosa Sogno',
+      emoji: '💖',
+      primaryColor: '#FF69B4',
+      secondaryTextColor: '#FF8DC8',
+      backgroundColor: '#FFEBF5',
+    },
+    {
+      name: 'Argento Luminoso',
+      emoji: '✨',
+      primaryColor: '#C0C0C0',
+      secondaryTextColor: '#D9D9D9',
+      backgroundColor: '#F2F2F2',
+    },
+    {
+      name: 'Turchese Tropicale',
+      emoji: '🏖️',
+      primaryColor: '#40E0D0',
+      secondaryTextColor: '#66E8DC',
+      backgroundColor: '#E0F8F6',
+    },
+    {
+      name: 'Azzurro Cielo',
+      emoji: '🌤️',
+      primaryColor: '#87CEEB',
+      secondaryTextColor: '#A1DBF2',
+      backgroundColor: '#E7F7FC',
+    },
+    {
+      name: 'Giallo Zafferano',
+      emoji: '🌼',
+      primaryColor: '#FFD700',
+      secondaryTextColor: '#FFDF33',
+      backgroundColor: '#FFF4CC',
+    },
+    {
+      name: 'Lavanda Provence',
+      emoji: '💐',
+      primaryColor: '#E6E6FA',
+      secondaryTextColor: '#F0F0FD',
+      backgroundColor: '#FAFAFF',
+    },
+    {
+      name: 'Marrone Cioccolato',
+      emoji: '🍩',
+      primaryColor: '#D2691E',
+      secondaryTextColor: '#E08F4D',
+      backgroundColor: '#F5DECC',
+    },
+    {
+      name: 'Rosa Corallo',
+      emoji: '🌺',
+      primaryColor: '#FF6B6B',
+      secondaryTextColor: '#FF8C8C',
+      backgroundColor: '#FFE5E5',
+    },
+  ];
+  
+  export default themeColors;
+  
