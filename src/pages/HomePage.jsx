@@ -46,6 +46,14 @@ const HomePage = () => {
           ))}
         </select>
       </div>
+
+          <div className="container">
+            <div className="logo">
+              TODO List
+            </div>
+          </div>
+
+
     </div>
   );
 };
