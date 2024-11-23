@@ -3,7 +3,7 @@ import { useTheme } from "../ThemeContext";
 import themeColors from "../assets/styles/themeColors";
 
 const HomePage = () => {
-  //theme context
+  // theme context
   const { currentTheme, switchTheme } = useTheme();
 
   return (
@@ -22,26 +22,30 @@ const HomePage = () => {
       </p>
 
       <h2>Cambia Tema:</h2>
-      <div style={{ display: "flex", gap: "10px" }}>
-        {themeColors.map((theme) => (
-          <button
-            key={theme.name}
-            onClick={() => switchTheme(theme.name)}
-            style={{
-              backgroundColor: theme.primaryColor,
-              color: "#fff",
-              padding: "10px 15px",
-              border: "none",
-              borderRadius: "5px",
-              cursor: "pointer",
-            }}
-          >
-            {theme.emoji} {theme.name}
-          </button>
-        ))}
+      <div style={{ width: "200px" }}>
+        <select
+          value={currentTheme.name}
+          onChange={(e) => switchTheme(e.target.value)}
+          style={{
+            width: "100%",
+            padding: "10px",
+            fontSize: "16px",
+            borderRadius: "5px",
+            border: "1px solid #ccc",
+            cursor: "pointer",
+          }}
+        >
+          {themeColors.map((theme) => (
+            <option
+              key={theme.name}
+              value={theme.name}
+              style={{ backgroundColor: theme.primaryColor, color: "#fff" }}
+            >
+              {theme.emoji} {theme.name}
+            </option>
+          ))}
+        </select>
       </div>
-
-
     </div>
   );
 };
